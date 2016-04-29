@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.IOException;
@@ -31,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
         ParseApplications appsParser = new ParseApplications(mFileContents);
         appsParser.process();
 
-//        listview_data.setAdapter(new ArrayAdapter<>(
-//              MainActivity.this,
-//              R.layout.list_item,
-//              appsParser.getListApps()
-//        ));
+        listview_data.setAdapter(new ArrayAdapter<>(
+              MainActivity.this,
+              R.layout.list_item,
+              appsParser.getListApps()
+        ));
     }
 
     private class SyncData extends AsyncTask<String, Void, String> {
