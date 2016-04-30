@@ -17,17 +17,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private String mFileContents;
-    private ListView dataView;
+    private ListView listApps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dataView = (ListView) findViewById(R.id.listView_data);
-        if (dataView == null) {
-            Log.d(TAG, "onCreate: ListView_data is null");
-        }
-
+        listApps = (ListView) findViewById(R.id.xmlListView);
         SyncData syncData = new SyncData();
         syncData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices" +
               ".woa/ws/RSS/topfreeapplications/limit=10/xml");
@@ -80,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             ParseApplications appsParser = new ParseApplications(mFileContents);
             appsParser.process();
 
-            dataView.setAdapter(new ArrayAdapter<>(
+            listApps.setAdapter(new ArrayAdapter<>(
                   MainActivity.this,
                   R.layout.list_item,
                   appsParser.getListApps()
