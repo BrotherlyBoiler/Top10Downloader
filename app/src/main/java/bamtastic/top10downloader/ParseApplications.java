@@ -8,9 +8,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-/**
- * Created by Vishal on 29-Apr-16.
- */
 public class ParseApplications {
 
     private String data;

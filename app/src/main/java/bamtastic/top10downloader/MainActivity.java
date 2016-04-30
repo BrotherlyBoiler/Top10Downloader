@@ -22,21 +22,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        listview_data = (ListView) findViewById(R.id.listView_data);
         setContentView(R.layout.activity_main);
         SyncData syncData = new SyncData();
         syncData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices" +
               ".woa/ws/RSS/topfreeapplications/limit=10/xml");
-
-        listview_data = (ListView) findViewById(R.id.listView_data);
-
-        ParseApplications appsParser = new ParseApplications(mFileContents);
-        appsParser.process();
-
-        listview_data.setAdapter(new ArrayAdapter<>(
-              MainActivity.this,
-              R.layout.list_item,
-              appsParser.getListApps()
-        ));
     }
 
     private class SyncData extends AsyncTask<String, Void, String> {
@@ -82,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.d(TAG, "onPostExecute: " + s);
+
+            ParseApplications appsParser = new ParseApplications(mFileContents);
+            appsParser.process();
+
+            listview_data.setAdapter(new ArrayAdapter<>(
+                  MainActivity.this,
+                  R.layout.list_item,
+                  appsParser.getListApps()
+            ));
         }
     }
 }
